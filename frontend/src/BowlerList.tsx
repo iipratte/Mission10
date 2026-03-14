@@ -19,31 +19,38 @@ function BowlerList() {
       <table>
         <thead>
           <tr>
-            <th>
-              <td>Bowler Name</td>
-              <td>Team Name</td>
-              <td>Address</td>
-              <td>City</td>
-              <td>State</td>
-              <td>Zip</td>
-              <td>Phone Number</td>
-            </th>
+            <th>Bowler Name</th>
+            <th>Team Name</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Zip</th>
+            <th>Phone Number</th>
           </tr>
         </thead>
         <tbody>
-          {bowlers.map((b) => (
-            <tr key={b.bowlerId}>
-              <td>
-                {b.bowlerFirstName} {b.bowlerMiddleInit} {b.bowlerLastName}
-              </td>
-              <td>{b.bowlerTeam}</td>
-              <td>{b.bowlerAddress}</td>
-              <td>{b.bowlerCity}</td>
-              <td>{b.bowlerState}</td>
-              <td>{b.bowlerZip}</td>
-              <td>{b.bowlerPhoneNumber}</td>
-            </tr>
-          ))}
+          {bowlers
+            // 1. Filter the list first
+            .filter(
+              (b) =>
+                b.team?.teamName === 'Marlins' || b.team?.teamName === 'Sharks'
+            )
+            // 2. Map the filtered list to table rows
+            .map((b) => (
+              <tr key={b.bowlerId}>
+                <td>
+                  {b.bowlerFirstName}{' '}
+                  {b.bowlerMiddleInit ? b.bowlerMiddleInit + ' ' : ''}
+                  {b.bowlerLastName}
+                </td>
+                <td>{b.team?.teamName}</td>
+                <td>{b.bowlerAddress}</td>
+                <td>{b.bowlerCity}</td>
+                <td>{b.bowlerState}</td>
+                <td>{b.bowlerZip}</td>
+                <td>{b.bowlerPhoneNumber}</td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </>

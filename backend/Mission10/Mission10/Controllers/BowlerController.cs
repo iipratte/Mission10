@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Mission10.Data;
 
 namespace Mission10.Controllers
@@ -18,9 +19,9 @@ namespace Mission10.Controllers
         [HttpGet(Name = "GetBowling")]
         public IEnumerable<Bowler> Get()
         {
-            var bowlerList = _bowlingContext.Bowlers.ToList();
-
-            return (bowlerList);
+            return _bowlingContext.Bowlers
+                .Include(b => b.Team)
+                .ToList();
         }
     }
 }

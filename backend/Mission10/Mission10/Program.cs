@@ -11,6 +11,13 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddDbContext<BowlingLeagueContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("BowlingConnection")));
 
+// AI generated code to allow joining
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+    });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
